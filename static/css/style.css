@@ -5,13 +5,13 @@
     color : #3b3b3b !important;
 }
 
-body{
-    max-height: 100% !important;
-}
-
 hr{
     width: 90%;
     color: #b4b4b4;
+}
+
+.contacts, .chat, .profile{
+    height: 100vh;
 }
 
 /* NavBar & Contacts */
@@ -19,7 +19,7 @@ hr{
 .contacts{
     text-align: center;
     background-color : #f6f7f9;
-
+    height: 100vh;
 }
 
 .contacts .nav{
@@ -52,6 +52,11 @@ hr{
     text-align: left;
 }
 
+.contact-list{
+    overflow: auto;
+    height: 70vh;
+}
+
 .profile-card{
     display: flex;
     align-items: center;
@@ -78,6 +83,13 @@ hr{
     border: 2px solid #f6f7f9;
 }
 
+.chat .space-chat{
+    display: flex;
+	flex-direction: column;
+    overflow-y: auto;
+    height: 85%;
+}
+
 .my-message img, .contact-message img{
     max-width:100px;
     border-radius: 200px;
@@ -85,18 +97,25 @@ hr{
     margin: 10px 0;
 }
 
+.contact-message{
+    align-self: flex-start;
+}
+
 .my-message{
-    float:right;
+    align-self: flex-end;
 }
 
 .chat .send-image{
     max-width:100%;
     width:200%;
+    position: absolute;
+    bottom: 0;
+    white-space: nowrap;
+    overflow: auto;
 }
 
-.send-image{
-    overflow: auto;
-    white-space: nowrap;
+.send-image img{
+    max-width: 10%;
 }
 
 /* Profil Contact */
