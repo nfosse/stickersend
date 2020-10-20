@@ -1,0 +1,126 @@
+/* Global */
+
+*{
+    font-family: Proxima nova;
+    color : #3b3b3b !important;
+}
+
+body{
+    max-height: 100% !important;
+}
+
+hr{
+    width: 90%;
+    color: #b4b4b4;
+}
+
+/* NavBar & Contacts */
+
+.contacts{
+    text-align: center;
+    background-color : #f6f7f9;
+
+}
+
+.contacts .nav{
+    list-style: none;
+}
+
+.contacts .nav li{
+    margin: 1rem auto;
+    padding: 20px;
+    font-size: 20px;
+    color : #848587;
+}
+
+.contacts .nav li i{
+    font-size: 30px;
+    color: #0055a8 !important;
+}
+
+.contacts .nav li a{
+    text-decoration: none;
+    text-transform: uppercase;
+}
+
+.searchbar{
+    border:none;
+    border-radius: 50px;
+    padding: 15px 25px;
+    width:80%;
+    height: auto;
+    text-align: left;
+}
+
+.profile-card{
+    display: flex;
+    align-items: center;
+    border: 1px solid rgba(0,0,0,.1);
+    padding: 10px 20px;
+    border-radius: 50px;
+    margin:20px auto;
+    width: 80%;
+}
+
+.profile-card img{
+    max-width: 50px;
+    border-radius: 40px;
+}
+
+.profile-card p{
+    margin: 0;
+    padding-left: 10px;
+}
+
+/* Chat */
+
+.chat{
+    border: 2px solid #f6f7f9;
+}
+
+.my-message img, .contact-message img{
+    max-width:100px;
+    border-radius: 200px;
+    padding: 10px;
+    margin: 10px 0;
+}
+
+.my-message{
+    float:right;
+}
+
+.chat .send-image{
+    max-width:100%;
+    width:200%;
+}
+
+.send-image{
+    overflow: auto;
+    white-space: nowrap;
+}
+
+/* Profil Contact */
+
+.profile{
+    text-align: center;
+}
+
+.profile h2{
+    font-weight: bold;
+}
+
+.profile img{
+    width:60%;
+    border-radius: 200px;
+    margin:30px
+}
+
+.profile i{
+    font-size: 40px;
+    margin: 10px;
+    color: #0055a8 !important;
+}
+
+.premium-message input{
+    background-color: white;
+}
