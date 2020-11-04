@@ -1,0 +1,47 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Update User</title>
+{% endblock %}
+
+{% block body %}
+<div class="content">
+    <h1>Update User</h1>
+
+    <div class="formulaire">
+		<form method="post" action="/update/{{g.user['id']}}">
+			<label for="username">New Username</label>
+			<input type="text" name="username" id="username"
+			  value="{{ request.form['username'] or g.user['username'] }}" required>
+
+			<label for="email">New Email</label>
+			<input type="email" name="email" id="email"
+			  value="{{ request.form['email'] or g.user['email'] }}" required>
+
+			<label for="personal_message">Personal Message</label>
+			<textarea name="personal_message" id="personal_message">{{ request.form['personal_message'] or g.user['personal_message'] }}</textarea>
+
+			<label for="picture_url">Picture url</label>
+			<input type="text" name="picture_url" id="picture_url"
+			  value="{{ request.form['picture_url'] or g.user['picture_url'] }}">
+
+			<label for="facebook_url">Facebook url</label>
+			<input type="text" name="facebook_url" id="facebook_url"
+			  value="{{ request.form['facebook_url'] or g.user['facebook_url'] }}">
+
+			<label for="twitter_url">Twitter url</label>
+			<input type="text" name="twitter_url" id="twitter_url"
+			  value="{{ request.form['twitter_url'] or g.user['twitter_url'] }}">
+
+			<label for="birth_date">Birth date</label>
+			<input type="date" name="birth_date" id="birth_date"
+			  value="{{ request.form['birth_date'] or g.user['birth_date'] }}">
+
+			<input type="submit" value="Update">
+		</form>
+	</div>
+</div>
+
+
+
+{% endblock %}
