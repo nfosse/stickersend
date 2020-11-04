@@ -1,0 +1,63 @@
+{% extends 'base.html' %}
+
+{% block head %}
+<title>Bienvenue sur Stickersend !</title>
+{% endblock %}
+
+{% block body %}
+<div class="sign-page">
+    <div class="container-fluid">
+        <div class="row form justify-content-center">
+            <div class="col-sm-10 col-md-5 col-lg-4 col-xl-3 align-self-center log-space">
+                <h1>Stickersend</h1>
+                <p>Bienvenue sur notre chat révolutionnaire !</p>
+
+                <ul class="nav nav-pills justify-content-center" id="pills-tab" role="tablist">
+                  <li class="nav-item log-choice" role="presentation">
+                    <a class="nav-link active" id="connexion-tab" data-toggle="tab" href="#connexion" role="tab" aria-controls="connexion" aria-selected="true">Connexion</a>
+                  </li>
+                  <li class="nav-item log-choice" role="presentation">
+                    <a class="nav-link" id="register-tab" data-toggle="tab" href="#register" role="tab" aria-controls="register" aria-selected="false">Inscription</a>
+                  </li>
+                </ul>
+
+                <div class="tab-content" id="myTabContent">
+                    <div class="tab-pane fade show active" id="connexion" role="tabpanel" aria-labelledby="connexion-tab">
+                        <form action="/login" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="username" class="form-control" id="username" placeholder="Nom d'utilisateur">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="password_hash" class="form-control" id="password" placeholder="Mot de passe">
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <button type="submit" class="btn">Se connecter</button>
+                            </div>
+                        </form>
+                        {% for message in get_flashed_messages() %}
+                            <div class="flash">{{ message }}</div>
+                        {% endfor %}
+                    </div>
+                    <div class="tab-pane fade" id="register" role="tabpanel" aria-labelledby="register-tab">
+                        <form action="/register" method="POST">
+                            <div class="form-group">
+                                <input type="text" name="newusername" class="form-control" placeholder="Nom d'utilisateur">
+                            </div>
+                            <div class="form-group">
+                                <input type="email" name="newemail" class="form-control" placeholder="Email">
+                            </div>
+                            <div class="form-group">
+                                <input type="password" name="newpassword" class="form-control" placeholder="Mot de passe">
+                            </div>
+                            <div class="form-row justify-content-center">
+                                <button type="submit" class="btn">S'inscrire</button>
+                            </div>
+                        </form>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
