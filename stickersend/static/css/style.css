@@ -14,7 +14,88 @@ hr{
     height: 100vh;
 }
 
+/* Login */
+
+html, .form {
+    height: 100%;
+}
+
+.nav-pills {
+    margin-bottom:50px !important;
+}
+
+.nav-pills .nav-link.active {
+    color: white !important;
+    background-color: #66afe9 !important;
+}
+
+.sign-page{
+    display: flex;
+    justify-content: center;
+    background: linear-gradient(rgba(0,0,0,0.3), rgba(0,0,0,0.3)), url("../img/background.jpg");
+    height: 100vh;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+}
+
+.log-space{
+    padding: 80px 50px !important;
+    background-color: white;
+    margin-top: auto;
+    margin-bottom: auto;
+    border-radius: 5px;
+}
+
+.sign-page h1{
+    font-size: 30px;
+    text-align: center;
+    text-transform: uppercase;
+    font-weight: bold;
+}
+
+.sign-page p{
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.form-control{
+    transition: 0.5s !important;
+}
+
+.form-control:focus {
+    border:none !important;
+    box-shadow: 1px 1px 10px #66afe9 !important;
+}
+
+.btn {
+    margin-top: 30px !important;
+    border: 1px solid black !important;
+    color: black !important;
+    transition: 0.5s;
+}
+
+.btn:hover {
+    background-color: #66afe9 !important;
+    border: 1px solid #66afe9 !important;
+    color: white !important;
+}
+
 /* NavBar & Contacts */
+
+.nav-pills .nav-chat {
+    transition: 0.5s;
+}
+
+.nav-pills .nav-chat.active {
+    background: none !important;
+    color: #66afe9 !important;
+    box-shadow: 1px 1px 10px #66afe9 !important;
+}
+
+.nav-pills .nav-chat.active i {
+    color: #66afe9 !important;
+}
 
 .contacts{
     text-align: center;
@@ -35,7 +116,6 @@ hr{
 
 .contacts .nav li i{
     font-size: 30px;
-    color: #0055a8 !important;
 }
 
 .contacts .nav li a{
@@ -118,26 +198,41 @@ hr{
     max-width: 10%;
 }
 
-/* Profil Contact */
+/* User Profile */
 
-.profile{
+.edit-profile {
+    font-size: 20px !important;
+    text-decoration: none !important;
+    padding: 8px 15px;
+    border: 1px solid black;
+    border-radius: 5px;
+    transition:0.5s;
+}
+
+.edit-profile:hover {
+    border: none;
+    background-color: #66afe9;
+    color: white !important;
+}
+
+.profile, .my-profile{
     text-align: center;
 }
 
-.profile h2{
+.profile h2, .my-profile h2{
     font-weight: bold;
 }
 
-.profile img{
+.profile img, .my-profile img{
     width:60%;
     border-radius: 200px;
     margin:30px
 }
 
-.profile i{
+.profile i, .my-profile i{
     font-size: 40px;
     margin: 10px;
-    color: #0055a8 !important;
+    color: #66afe9 !important;
 }
 
 .premium-message input{
