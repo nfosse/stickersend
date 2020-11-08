@@ -90,7 +90,6 @@ html, .form {
 .nav-pills .nav-chat.active {
     background: none !important;
     color: #66afe9 !important;
-    box-shadow: 1px 1px 10px #66afe9 !important;
 }
 
 .nav-pills .nav-chat.active i {
@@ -133,8 +132,22 @@ html, .form {
 }
 
 .contact-list{
-    overflow: auto;
-    height: 70vh;
+    overflow-y: auto;
+    overflow-x: hidden;
+    height: 50vh;
+}
+
+.contact{
+    font-size: 20px;
+    margin: 10px 20px;
+    padding: 15px !important;
+    border-radius: 50px !important;
+    border: 1px solid gainsboro;
+}
+
+.contact.active {
+    color: white !important;
+    background-color: #66afe9 !important;
 }
 
 .profile-card{
@@ -165,24 +178,36 @@ html, .form {
 
 .chat .space-chat{
     display: flex;
-	flex-direction: column;
-    overflow-y: auto;
+    flex-direction: column;
+    overflow: auto;
     height: 85%;
 }
 
-.my-message img, .contact-message img{
+.line-chat {
+    margin: 0;
+    width: 100%;
+}
+
+.contact-message p{
+    padding-left: 10px;
+    padding-top: 10px;
+    margin: 0;
+}
+
+.contact-message span{
+    font-weight: bold;
+    font-size: 20px;
+}
+
+.contact-message img{
     max-width:100px;
-    border-radius: 200px;
-    padding: 10px;
-    margin: 10px 0;
+    padding-left: 10px;
+    padding-bottom: 10px;
+    margin: 0;
 }
 
 .contact-message{
     align-self: flex-start;
-}
-
-.my-message{
-    align-self: flex-end;
 }
 
 .chat .send-image{
@@ -194,8 +219,17 @@ html, .form {
     overflow: auto;
 }
 
+.nav-stickers{
+    background-color: white;
+}
+
 .send-image img{
-    max-width: 10%;
+    max-width: 8%;
+    margin:20px !important;
+}
+
+sticker_packs{
+    background: white;
 }
 
 /* User Profile */

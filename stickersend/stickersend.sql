@@ -49,36 +49,10 @@ CREATE TABLE roles (
 
 CREATE TABLE stickers (
 	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	pack_id INTEGER NOT NULL,
-	image_link TEXT NOT NULL,
-	emoji VARCHAR(30) NOT NULL,
-	upload_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP,
-	FOREIGN KEY (pack_id) REFERENCES sticker_packs (id)
+	pack_name VARCHAR(30) NOT NULL,
+	image_link VARCHAR(30) NOT NULL,
+	upload_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
 );
-
-CREATE TABLE sticker_packs (
-	id INTEGER PRIMARY KEY AUTOINCREMENT,
-	name VARCHAR(30) NOT NULL,
-	creation_date TIMESTAMP NOT NULL DEFAULT CURRENT_TIMESTAMP
-);
-
-INSERT INTO users (role_id,username,email,password_hash,picture_url,personal_message,facebook_url,twitter_url,birth_date)
-VALUES('1','Shawoo','shawoo@gmail.com', 'passwordtest', 'https://i.pinimg.com/originals/f3/a8/3d/f3a83d21f06c28a5fd999abec5cc0f94.jpg', 'Bonjour, je suis Julie', 'https://www.facebook.com/', 'https://twitter.com/home', '2000-09-23');
-
-INSERT INTO users (role_id,username,email,password_hash,picture_url,personal_message,facebook_url,twitter_url,birth_date)
-VALUES('2','Tamky','tamky@gmail.com', 'thebestpassword', 'https://fiverr-res.cloudinary.com/images/q_auto,f_auto/gigs2/112692698/original/31a5d2469689575beee06ffcf4e9e76abab3abe2/logo-design-for-profile-picture-dessin-pour-photo-de-profil.png', 'Coucou, je cherche des gens avec qui discuter', 'https://www.facebook.com/', 'https://twitter.com/home', '1998-02-17');
-
-INSERT INTO friends (user_id,friend_id)
-VALUES('1','2');
-
-INSERT INTO friends (user_id,friend_id)
-VALUES('2','1');
-
-INSERT INTO messages (sender_id,receiver_id,image_link)
-VALUES('1','2','1');
-
-INSERT INTO messages (sender_id,receiver_id,image_link)
-VALUES('2','1','2');
 
 INSERT INTO roles (name,can_upload_images,can_delete_other_images,can_create_stickers)
 VALUES('admin','1','1','1');
@@ -89,11 +63,117 @@ VALUES('premium','1','0','0');
 INSERT INTO roles (name,can_upload_images,can_delete_other_images,can_create_stickers)
 VALUES('member','0','0','0');
 
-INSERT INTO stickers (pack_id,image_link,emoji)
-VALUES('1','suspicious.png','suspicious');
-
-INSERT INTO stickers (pack_id,image_link,emoji)
-VALUES('1','love.png','in_love');
-
-INSERT INTO sticker_packs (name)
-VALUES('yellow_n_wings');
+INSERT INTO stickers (pack_name,image_link)
+VALUES
+('baby_yoda','sticker_1.webp'),
+('baby_yoda','sticker_2.webp'),
+('baby_yoda','sticker_3.webp'),
+('baby_yoda','sticker_4.webp'),
+('baby_yoda','sticker_5.webp'),
+('baby_yoda','sticker_6.webp'),
+('baby_yoda','sticker_7.webp'),
+('baby_yoda','sticker_8.webp'),
+('baby_yoda','sticker_9.webp'),
+('memes','sticker_1.webp'),
+('memes','sticker_2.webp'),
+('memes','sticker_3.webp'),
+('memes','sticker_4.webp'),
+('memes','sticker_5.webp'),
+('memes','sticker_6.webp'),
+('memes','sticker_7.webp'),
+('memes','sticker_8.webp'),
+('memes','sticker_9.webp'),
+('memes','sticker_10.webp'),
+('memes','sticker_11.webp'),
+('molang','sticker_1.webp'),
+('molang','sticker_2.webp'),
+('molang','sticker_3.webp'),
+('molang','sticker_4.webp'),
+('molang','sticker_5.webp'),
+('molang','sticker_6.webp'),
+('molang','sticker_7.webp'),
+('molang','sticker_8.webp'),
+('molang','sticker_9.webp'),
+('molang','sticker_10.webp'),
+('molang','sticker_11.webp'),
+('molang','sticker_12.webp'),
+('molang','sticker_13.webp'),
+('molang','sticker_14.webp'),
+('molang','sticker_15.webp'),
+('molang','sticker_16.webp'),
+('molang','sticker_17.webp'),
+('molang','sticker_18.webp'),
+('molang','sticker_19.webp'),
+('molang','sticker_20.webp'),
+('molang','sticker_21.webp'),
+('molang','sticker_22.webp'),
+('molang','sticker_23.webp'),
+('molang','sticker_24.webp'),
+('molang','sticker_25.webp'),
+('molang','sticker_26.webp'),
+('molang','sticker_27.webp'),
+('molang','sticker_28.webp'),
+('molang','sticker_29.webp'),
+('molang','sticker_30.webp'),
+('polar','sticker_1.webp'),
+('polar','sticker_2.webp'),
+('polar','sticker_3.webp'),
+('polar','sticker_4.webp'),
+('polar','sticker_5.webp'),
+('polar','sticker_6.webp'),
+('polar','sticker_7.webp'),
+('polar','sticker_8.webp'),
+('polar','sticker_9.webp'),
+('polar','sticker_10.webp'),
+('polar','sticker_11.webp'),
+('polar','sticker_12.webp'),
+('polar','sticker_13.webp'),
+('polar','sticker_14.webp'),
+('polar','sticker_15.webp'),
+('polar','sticker_16.webp'),
+('pummeleinhorn','sticker_1.webp'),
+('pummeleinhorn','sticker_2.webp'),
+('pummeleinhorn','sticker_3.webp'),
+('pummeleinhorn','sticker_4.webp'),
+('pummeleinhorn','sticker_5.webp'),
+('pummeleinhorn','sticker_6.webp'),
+('pummeleinhorn','sticker_7.webp'),
+('pummeleinhorn','sticker_8.webp'),
+('pummeleinhorn','sticker_9.webp'),
+('pummeleinhorn','sticker_10.webp'),
+('pummeleinhorn','sticker_11.webp'),
+('pummeleinhorn','sticker_12.webp'),
+('pummeleinhorn','sticker_13.webp'),
+('pummeleinhorn','sticker_14.webp'),
+('pummeleinhorn','sticker_15.webp'),
+('pummeleinhorn','sticker_16.webp'),
+('pummeleinhorn','sticker_17.webp'),
+('pummeleinhorn','sticker_18.webp'),
+('pummeleinhorn','sticker_19.webp'),
+('pummeleinhorn','sticker_20.webp'),
+('pummeleinhorn','sticker_21.webp'),
+('pummeleinhorn','sticker_22.webp'),
+('stitch','sticker_1.webp'),
+('stitch','sticker_2.webp'),
+('stitch','sticker_3.webp'),
+('stitch','sticker_4.webp'),
+('stitch','sticker_5.webp'),
+('stitch','sticker_6.webp'),
+('stitch','sticker_7.webp'),
+('stitch','sticker_8.webp'),
+('stitch','sticker_9.webp'),
+('stitch','sticker_10.webp'),
+('stitch','sticker_11.webp'),
+('stitch','sticker_12.webp'),
+('stitch','sticker_13.webp'),
+('texte','sticker_1.webp'),
+('texte','sticker_2.webp'),
+('texte','sticker_3.webp'),
+('texte','sticker_4.webp'),
+('texte','sticker_5.webp'),
+('texte','sticker_6.webp'),
+('texte','sticker_7.webp'),
+('texte','sticker_8.webp'),
+('texte','sticker_9.webp'),
+('texte','sticker_10.webp'),
+('texte','sticker_11.webp');
