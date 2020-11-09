@@ -5,6 +5,7 @@ from flask import current_app, g
 from flask.cli import with_appcontext
 
 
+# Establishes a connection to the database
 def get_db():
     if 'db' not in g:
         g.db = sqlite3.connect(
@@ -16,6 +17,7 @@ def get_db():
     return g.db
 
 
+# Checks if a connection was created
 def close_db(e=None):
     db = g.pop('db', None)
 
@@ -23,13 +25,16 @@ def close_db(e=None):
         db.close()
 
 
+# Runs SQL commands
 def init_db():
     db = get_db()
 
+    # Opens an sql file
     with current_app.open_resource('stickersend.sql') as f:
         db.executescript(f.read().decode('utf8'))
 
 
+# Defines a command that calls the init_db function
 @click.command('init-db')
 @with_appcontext
 def init_db_command():
