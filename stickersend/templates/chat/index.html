@@ -9,50 +9,54 @@
     <div class="row">
         <div class="col-sm-3 contacts">
             <ul class="nav nav-pills mb-3" id="pills-tab" role="tablist">
-              <li class="nav-item" role="presentation">
-                <a class="nav-link nav-chat active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile" role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-user"></i><br>Profil</a>
-              </li>
-              <li class="nav-item" role="presentation">
-                <a class="nav-link nav-chat" id="pills-contact-tab" data-toggle="pill" href="#pills-contact" role="tab" aria-controls="pills-contact" aria-selected="false"><i class="fas fa-address-book"></i><br>Contacts</a>
-              </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link nav-chat active" id="pills-profile-tab" data-toggle="pill" href="#pills-profile"
+                       role="tab" aria-controls="pills-profile" aria-selected="false"><i class="fas fa-user"></i><br>Profil</a>
+                </li>
+                <li class="nav-item" role="presentation">
+                    <a class="nav-link nav-chat" id="pills-contact-tab" data-toggle="pill" href="#pills-contact"
+                       role="tab" aria-controls="pills-contact" aria-selected="false"><i
+                            class="fas fa-address-book"></i><br>Contacts</a>
+                </li>
             </ul>
 
             <div class="tab-content" id="pills-tabContent">
-              <div class="tab-pane fade show active" id="pills-profile" role="tabpanel" aria-labelledby="pills-profile-tab">
-
-                  <hr/>
-
-                  <div class="my-profile">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <img src="{{ url_for('static', filename='img/profile-pic.png') }}">
-                        </div>
-                        <div class="col-sm-12">
-                            <h2>{{ g.user["username"] }}</h2>
-                        </div>
-                        <div class="col-sm-12">
-                            <p>{{ g.user["personal_message"] }}</p>
-                            <p>{{ g.user['birth_date'] }}</p>
-                        </div>
-                        <div class="col-sm-12">
-                            <a href="{{g.user['facebook_url']}}"><i class="fab fa-facebook"></i></a>
-                            <a href="{{g.user['twitter_url']}}"><i class="fab fa-twitter-square"></i></a>
-                        </div>
-                    </div>
-                  </div>
-
-                  <hr/>
-
-                  <a href="/update/{{g.user['id']}}" class="edit-profile">Modifier</a>
-                  <a href="/logout" class="edit-profile">Se déconnecter</a>
-
-              </div>
-
-              <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+                <div class="tab-pane fade show active" id="pills-profile" role="tabpanel"
+                     aria-labelledby="pills-profile-tab">
 
                     <hr/>
 
-                     <form action="/search">
+                    <div class="my-profile">
+                        <div class="row">
+                            <div class="col-sm-12">
+                                <img src="{{ url_for('static', filename='img/profile-pic.png') }}">
+                            </div>
+                            <div class="col-sm-12">
+                                <h2>{{ g.user["username"] }}</h2>
+                            </div>
+                            <div class="col-sm-12">
+                                <p>{{ g.user["personal_message"] }}</p>
+                                <p>{{ g.user['birth_date'] }}</p>
+                            </div>
+                            <div class="col-sm-12">
+                                <a href="{{g.user['facebook_url']}}"><i class="fab fa-facebook"></i></a>
+                                <a href="{{g.user['twitter_url']}}"><i class="fab fa-twitter-square"></i></a>
+                            </div>
+                        </div>
+                    </div>
+
+                    <hr/>
+
+                    <a href="/update/{{g.user['id']}}" class="edit-profile">Modifier</a>
+                    <a href="/logout" class="edit-profile">Se déconnecter</a>
+
+                </div>
+
+                <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
+
+                    <hr/>
+
+                    <form action="/search">
                         <input type="text" name="search" class="searchbar" placeholder="Trouver contact">
                         <i class="fas fa-search"></i>
                     </form>
@@ -62,17 +66,23 @@
                     <div class="contact-list">
 
                         <div class="row">
-                          <div class="col-12">
-                            <div class="nav flex-column nav-pills nav-contact" id="v-pills-tab" role="tablist" aria-orientation="vertical">
-                                {% for contact in contacts %}
-                                    <a class="nav-link contact" id="v-pills-home-tab" data-toggle="pill" href="#contact{{ contact['id'] }}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ contact['username'] }}</a>
-                                {% endfor %}
+                            <div class="col-12">
+                                <div class="nav flex-column nav-pills nav-contact" id="v-pills-tab" role="tablist"
+                                     aria-orientation="vertical">
+                                    {% for contact in contacts %}
+                                    {% if g.user['id'] == contact['id'] %}
+                                    {% else %}
+                                    <a class="nav-link contact" id="v-pills-home-tab" data-toggle="pill"
+                                       href=".contact{{ contact['id'] }}" role="tab" aria-controls="v-pills-home"
+                                       aria-selected="true">{{ contact['username'] }}</a>
+                                    {% endif %}
+                                    {% endfor %}
+                                </div>
                             </div>
-                          </div>
                         </div>
 
                     </div>
-              </div>
+                </div>
 
             </div>
         </div>
@@ -81,210 +91,97 @@
 
             <div class="col-12 space-chat">
                 <div class="tab-content" id="v-pills-tabContent">
-                    <div class="tab-pane fade show" id="contact1" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                    {% for contact in contacts %}
+                    {% if g.user['id'] == contact['id'] %}
+                    {% else %}
+                    <div class="tab-pane fade show contact{{ contact['id'] }}" role="tabpanel"
+                         aria-labelledby="v-pills-home-tab">
 
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/pummeleinhorn/sticker_5.webp') }}">
+                        <div class="messages">
+                            {% for sticker_message in stickers_message %}
+                            {% if contact['username'] == sticker_message['receiver_name'] %}
+                            <div class="contact-message">
+                                <p><span>{{ sticker_message['username'] }}</span> {{
+                                    sticker_message['send_date'] }}
+                                </p>
+                                <img src="{{ url_for('static', filename='img/') }}{{ sticker_message['pack_name'] }}/{{ sticker_message['image_link'] }}">
+                            </div>
+
+                            <hr class="line-chat"/>
+                            {% endif %}
+
+                            {% if contact['username'] == sticker_message['username'] %}
+                            <div class="contact-message">
+                                <p><span>{{ sticker_message['username'] }}</span> {{
+                                    sticker_message['send_date'] }}
+                                </p>
+                                <img src="{{ url_for('static', filename='img/') }}{{ sticker_message['pack_name'] }}/{{ sticker_message['image_link'] }}">
+                            </div>
+
+                            <hr class="line-chat"/>
+                            {% endif %}
+                            {% endfor %}
                         </div>
 
-                        <hr class="line-chat"/>
 
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/molang/sticker_15.webp') }}">
-                        </div>
+                        <div class="row send-image">
 
-                        <hr class="line-chat"/>
+                            <nav>
+                                <div class="nav nav-tabs" id="nav-tab" role="tablist">
+                                    {% for sticker_pack in sticker_packs %}
+                                    <a class="nav-link nav-stickers" data-toggle="tab"
+                                       href=".nav-{{ sticker_pack['pack_name'] }}{{ contact['id'] }}" role="tab"
+                                       aria-selected="true">{{
+                                        sticker_pack['pack_name'] }}</a>
+                                    {% endfor %}
+                                </div>
+                            </nav>
 
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/texte/sticker_3.webp') }}">
-                        </div>
+                            <div class="tab-content nav-sticker" id="nav-tabContent">
 
-                        <hr class="line-chat"/>
+                                {% for sticker_pack in sticker_packs %}
+                                <div class="tab-pane fade show nav-{{ sticker_pack['pack_name'] }}{{ contact['id'] }}"
+                                     role="tabpanel"
+                                     aria-labelledby="nav-home-tab">
 
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/memes/sticker_8.webp') }}">
-                        </div>
+                                    <div class="col-sm-12 sticker_packs">
+                                        {% for sticker in stickers %}
+                                        {% if sticker['pack_name'] == sticker_pack['pack_name']: %}
+                                        <form action="{{ url_for('chat.send_sticker', stickerId=sticker['id']) }}"
+                                              method="POST">
+                                            <div class="btn-sticker">
+                                                <input type="hidden" name="contactid" value="{{ contact['id'] }}">
+                                                <button><img
+                                                        src="{{ url_for('static', filename='img/') }}{{ sticker_pack['pack_name'] }}/{{ sticker['image_link'] }}">
+                                                </button>
+                                            </div>
+                                        </form>
+                                        {% endif %}
+                                        {% endfor %}
+                                    </div>
 
-                        <hr class="line-chat"/>
+                                </div>
+                                {% endfor %}
 
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/polar/sticker_14.webp') }}">
-                        </div>
+                            </div>
 
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/baby_yoda/sticker_8.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/baby_yoda/sticker_2.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/pummeleinhorn/sticker_5.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/molang/sticker_15.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/texte/sticker_3.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/memes/sticker_8.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/polar/sticker_14.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Jane Doe </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/baby_yoda/sticker_8.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/baby_yoda/sticker_2.webp') }}">
                         </div>
 
                     </div>
-
-                    <div class="tab-pane fade" id="contact2" role="tabpanel" aria-labelledby="v-pills-profile-tab">
-
-                        <div class="contact-message">
-                            <p><span>John Smith </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/stitch/sticker_10.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/memes/sticker_8.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>John Smith </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/memes/sticker_9.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/memes/sticker_1.webp') }}">
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="contact3" role="tabpanel" aria-labelledby="v-pills-messages-tab">
-
-                        <div class="contact-message">
-                            <p><span>Marie Robert </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/texte/sticker_3.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Marie Robert </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/stitch/sticker_10.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>James Dupont </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/baby_yoda/sticker_7.webp') }}">
-                        </div>
-
-                        <hr class="line-chat"/>
-
-                        <div class="contact-message">
-                            <p><span>Marie Robert </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/polar/sticker_14.webp') }}">
-                        </div>
-
-                    </div>
-                    <div class="tab-pane fade" id="contact4" role="tabpanel" aria-labelledby="v-pills-settings-tab">
-
-                        <div class="contact-message">
-                            <p><span>Corentin Fable </span> 05/11/2020</p>
-                            <img src="{{ url_for('static', filename='img/molang/sticker_12.webp') }}">
-                        </div>
-
-                    </div>
-                </div>
-            </div>
-
-            <div class="row send-image">
-
-                <nav>
-                  <div class="nav nav-tabs" id="nav-tab" role="tablist">
-                    {% for sticker_pack in sticker_packs %}
-                        <a class="nav-link nav-stickers" data-toggle="tab" href="#nav-{{ sticker_pack['pack_name'] }}" role="tab" aria-selected="true">{{ sticker_pack['pack_name'] }}</a>
+                    {% endif %}
                     {% endfor %}
-                  </div>
-                </nav>
-                <div class="tab-content nav-sticker" id="nav-tabContent">
-
-                  {% for sticker_pack in sticker_packs %}
-                  <div class="tab-pane fade show" id="nav-{{ sticker_pack['pack_name'] }}" role="tabpanel" aria-labelledby="nav-home-tab">
-
-                      <div class="col-sm-12 sticker_packs">
-                      {% for sticker in stickers %}
-                          {% if sticker['pack_name'] == sticker_pack['pack_name']: %}
-                            <a href="#"><img src="{{ url_for('static', filename='img/') }}{{ sticker_pack['pack_name'] }}/{{ sticker['image_link'] }}"></a>
-                          {% endif %}
-                      {% endfor %}
-                      </div>
-
-                  </div>
-                  {% endfor %}
-
                 </div>
             </div>
+
         </div>
 
         <div class="col-sm-2 profile">
 
             <div class="tab-content">
-            {% for contact in contacts %}
+                {% for contact in contacts %}
 
-                <div class="tab-pane fade show" id="profile{{ contact['username'] }}" role="tabpanel" aria-labelledby="v-pills-home-tab">
+                <div class="tab-pane fade show" id="profile{{ contact['username'] }}" role="tabpanel"
+                     aria-labelledby="v-pills-home-tab">
 
                     <div class="row">
                         <div class="col-sm-12">
@@ -304,7 +201,7 @@
                     </div>
 
                 </div>
-            {% endfor %}
+                {% endfor %}
             </div>
 
 
@@ -316,7 +213,9 @@
                         <p>Accède au profil des utilisateurs</p>
                         <div class="nav flex-column nav-pills nav-contact" role="tablist" aria-orientation="vertical">
                             {% for contact in contacts %}
-                                <a class="nav-link contact"data-toggle="pill" href="#profile{{ contact['username'] }}" role="tab" aria-controls="v-pills-home" aria-selected="true">{{ contact['username'] }}</a>
+                            <a class="nav-link contact" data-toggle="pill" href="#profile{{ contact['username'] }}"
+                               role="tab" aria-controls="v-pills-home" aria-selected="true">{{ contact['username']
+                                }}</a>
                             {% endfor %}
                         </div>
                     </div>

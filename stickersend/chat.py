@@ -1,5 +1,5 @@
 from flask import (
-    Blueprint, flash, g, redirect, render_template, request, url_for
+    Blueprint, flash, g, redirect, render_template, request, url_for, session
 )
 from werkzeug.exceptions import abort
 
@@ -7,6 +7,22 @@ from stickersend.auth import login_required
 from stickersend.db import get_db
 
 bp = Blueprint('chat', __name__)
+
+
+def get_result_message():
+    userId = session['user_id']
+    db = get_db()
+
+    stickers_sent = db.execute(
+        'SELECT S. *, U.username, R.username as receiver_name, M.receiver_id, M.send_date FROM messages M '
+        'INNER JOIN users U ON U.id = M.sender_id '
+        'INNER JOIN users R ON R.id = M.receiver_id '
+        'INNER JOIN stickers S ON S.id = M.sticker_id '
+        'WHERE M.sender_id = ? OR M.receiver_id = ?',
+        (userId, userId,)
+    ).fetchall()
+    return stickers_sent
+
 
 @bp.route('/')
 @login_required
@@ -27,11 +43,9 @@ def index():
         'SELECT * FROM stickers'
     ).fetchall()
 
-    # Fetch all from messages table and join it to the user table to link data with foreign key
-    messages = db.execute(
-        'SELECT M.* FROM messages M INNER JOIN users U ON U.id = M.sender_id WHERE U.id = 1'
-    ).fetchall()
-    return render_template('chat/index.html', contacts=contacts, sticker_packs=sticker_packs, stickers=stickers)
+    send_message = get_result_message()
+
+    return render_template('chat/index.html', stickers_message=send_message, contacts=contacts, sticker_packs=sticker_packs, stickers=stickers)
 
 
 # Update user information
@@ -71,3 +85,20 @@ def update(id):
             return redirect(url_for('chat.index'))
 
     return render_template("chat/update.html")
+
+
+@bp.route('/send_sticker/<int:stickerId>', methods=('GET', 'POST'))
+def send_sticker(stickerId):
+    userId = session['user_id']
+    db = get_db()
+    session['sticker_id'] = stickerId
+
+    if request.method == 'POST':
+        contactId = request.form['contactid']
+        db.execute(
+            'INSERT INTO messages (sender_id, receiver_id, sticker_id) VALUES (?, ?, ?)',
+            (userId, contactId, stickerId,)
+        )
+        db.commit()
+        return redirect(url_for('chat.index'))
+    return index()

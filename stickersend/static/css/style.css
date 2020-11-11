@@ -177,10 +177,7 @@ html, .form {
 }
 
 .chat .space-chat{
-    display: flex;
-    flex-direction: column;
-    overflow: auto;
-    height: 85%;
+    height: 100%;
 }
 
 .line-chat {
@@ -210,6 +207,10 @@ html, .form {
     align-self: flex-start;
 }
 
+.chat{
+    padding: 0 !important;
+}
+
 .chat .send-image{
     max-width:100%;
     width:200%;
@@ -223,13 +224,31 @@ html, .form {
     background-color: white;
 }
 
-.send-image img{
-    max-width: 8%;
+.send-image form button{
     margin:20px !important;
+    background-color: white !important;
+    border: none;
 }
 
-sticker_packs{
-    background: white;
+.send-image form button img{
+    width: 120px;
+}
+
+.sticker_packs{
+    background-color: white;
+    display: inline-flex;
+}
+
+.btn-sticker{
+    display: flex;
+    flex-direction: column;
+}
+
+.messages{
+    display: flex;
+    flex-direction: column;
+    overflow: auto;
+    height: 75vh;
 }
 
 /* User Profile */
