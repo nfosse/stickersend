@@ -12,29 +12,29 @@
                 <h1>Modification profil</h1>
                 <p>Personnalise ton profil afin que les autres utilisateurs fassent ta connaissance !</p>
 
-                <form action="/update/{{g.user['id']}}" method="POST">
+                <form action="/update/{{g.user['id']}}" method="POST" enctype="multipart/form-data">
                     <div class="form-group">
-                        <label for="username">New Username</label>
+                        <label for="username">Nom d'utilisateur</label>
                         <input type="text" class="form-control" name="username" id="username" value="{{ request.form['username'] or g.user['username'] }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="email">New Email</label>
+                        <label for="email">Email</label>
                         <input type="email" class="form-control" name="email" id="email" value="{{ request.form['email'] or g.user['email'] }}" required>
                     </div>
                     <div class="form-group">
-                        <label for="personal_message">Personal Message</label>
+                        <label for="personal_message">Description</label>
                         <textarea name="personal_message" class="form-control" id="personal_message">{{ request.form['personal_message'] or g.user['personal_message'] }}</textarea>
                     </div>
                     <div class="form-group">
-                        <label for="facebook_url">Facebook url</label>
+                        <label for="facebook_url">URL Facebook</label>
                         <input type="text" class="form-control" name="facebook_url" id="facebook_url" value="{{ request.form['facebook_url'] or g.user['facebook_url'] }}">
                     </div>
                     <div class="form-group">
-                        <label for="twitter_url">Twitter url</label>
+                        <label for="twitter_url">URL Twitter</label>
                         <input type="text" class="form-control" name="twitter_url" id="twitter_url" value="{{ request.form['twitter_url'] or g.user['twitter_url'] }}">
                     </div>
                     <div class="form-group">
-                        <label for="birth_date">Birth date</label>
+                        <label for="birth_date">Date de naissance</label>
                         <input type="date" class="form-control" name="birth_date" id="birth_date" value="{{ request.form['birth_date'] or g.user['birth_date'] }}">
                     </div>
                     <div class="form-row justify-content-center">

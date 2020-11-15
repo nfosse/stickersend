@@ -54,15 +54,6 @@
 
                 <div class="tab-pane fade" id="pills-contact" role="tabpanel" aria-labelledby="pills-contact-tab">
 
-                    <hr/>
-
-                    <form action="/search">
-                        <input type="text" name="search" class="searchbar" placeholder="Trouver contact">
-                        <i class="fas fa-search"></i>
-                    </form>
-
-                    <hr/>
-
                     <div class="contact-list">
 
                         <div class="row">
@@ -179,7 +170,8 @@
 
             <div class="tab-content">
                 {% for contact in contacts %}
-
+                {% if g.user['id'] == contact['id'] %}
+                {% else %}
                 <div class="tab-pane fade show" id="profile{{ contact['username'] }}" role="tabpanel"
                      aria-labelledby="v-pills-home-tab">
 
@@ -201,6 +193,7 @@
                     </div>
 
                 </div>
+                {% endif %}
                 {% endfor %}
             </div>
 
@@ -213,9 +206,12 @@
                         <p>Accède au profil des utilisateurs</p>
                         <div class="nav flex-column nav-pills nav-contact" role="tablist" aria-orientation="vertical">
                             {% for contact in contacts %}
+                            {% if g.user['id'] == contact['id'] %}
+                            {% else %}
                             <a class="nav-link contact" data-toggle="pill" href="#profile{{ contact['username'] }}"
                                role="tab" aria-controls="v-pills-home" aria-selected="true">{{ contact['username']
                                 }}</a>
+                            {% endif %}
                             {% endfor %}
                         </div>
                     </div>
