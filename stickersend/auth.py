@@ -5,7 +5,7 @@ from flask import (
 )
 from werkzeug.security import check_password_hash, generate_password_hash
 
-from stickersend.db import get_db
+from .db import get_db
 
 bp = Blueprint('auth', __name__)
 
@@ -22,32 +22,37 @@ def register():
         db = get_db()
         error = None
 
-        # Requirements for the data to be send : username, email and password are required
+        # Requirements for the data to be send : username, email and password
+        # are required
         if not new_username:
-            error = "Nom d'utilisateur requis"
+            error = 'Nom d’utilisateur requis'
         elif not new_email:
-            error = "Adresse email requise"
+            error = 'Adresse email requise'
         elif not new_password:
-            error = "Mot de passe requis"
+            error = 'Mot de passe requis'
 
-        # Execute an SQL request. If it returns a value, the user will be informed that he's already registered
+        # Execute an SQL request. If it returns a value, the user will be
+        # informed that he's already registered
         elif db.execute(
             'SELECT id FROM users WHERE username = ?', (new_username,)
         ).fetchone() is not None:
-            error = "L'utilisateur {} est déjà inscrit.".format(new_username)
+            error = f'L’utilisateur {new_username} est déjà inscrit.'
         elif db.execute(
                 'SELECT id FROM users WHERE email = ?', (new_email,)
         ).fetchone() is not None:
-            error = "L'email {} est déjà utilisé.".format(new_email)
+            error = f'L’email {new_email} est déjà utilisé.'
 
         # Add user to database if there is no error
         if error is None:
             db.execute(
-                'INSERT INTO users (role_id, username, email, password_hash) VALUES (?, ?, ?, ?)',
-                ('3', new_username, new_email, generate_password_hash(new_password))
+                'INSERT INTO users (role_id, username, email, password_hash) '
+                'VALUES (?, ?, ?, ?)', (
+                    '3', new_username, new_email,
+                    generate_password_hash(new_password))
             )
             db.commit()
-            # If everything is a success, it redirects the user to the login form
+            # If everything is a success, it redirects the user to the login
+            # form
             return redirect(url_for('auth.login'))
 
         flash(error)
@@ -73,9 +78,9 @@ def login():
 
         # If the username or/and the password don't match, he will get an error
         if user is None:
-            error = "Nom d'utilisateur incorrect"
+            error = 'Nom d’utilisateur incorrect'
         elif not check_password_hash(user['password_hash'], password_hash):
-            error = "Mot de passe incorrect"
+            error = 'Mot de passe incorrect'
 
         # A new session gets created if there is no error
         if error is None:
@@ -99,6 +104,7 @@ def load_logged_in_user():
         g.user = get_db().execute(
             'SELECT * FROM users WHERE id = ?', (user_id,)
         ).fetchone()
+
 
 @bp.route('/logout')
 def logout():

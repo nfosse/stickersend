@@ -1,9 +1,9 @@
 from flask import (
-Blueprint, flash, redirect, render_template, request, url_for, session
+    Blueprint, flash, redirect, render_template, request, url_for, session
 )
 
-from stickersend.auth import login_required
-from stickersend.db import get_db
+from .auth import login_required
+from .db import get_db
 
 bp = Blueprint('chat', __name__)
 
@@ -29,37 +29,42 @@ def index():
 
     send_message = get_result_message()
 
-    return render_template('chat/index.html', stickers_message=send_message, contacts=contacts, sticker_packs=sticker_packs, stickers=stickers)
+    return render_template(
+        'chat/index.html', stickers_message=send_message, contacts=contacts,
+        sticker_packs=sticker_packs, stickers=stickers)
 
 
 def get_result_message():
-    userId = session['user_id']
+    user_id = session['user_id']
     db = get_db()
 
     # Fetch all data from messages table
     stickers_sent = db.execute(
-        'SELECT S. *, U.username, R.username as receiver_name, M.receiver_id, M.send_date FROM messages M '
+        'SELECT S.*, U.username, R.username as receiver_name, M.receiver_id, '
+        '       M.send_date '
+        'FROM messages M '
         'INNER JOIN users U ON U.id = M.sender_id '
         'INNER JOIN users R ON R.id = M.receiver_id '
         'INNER JOIN stickers S ON S.id = M.sticker_id '
         'WHERE M.sender_id = ? OR M.receiver_id = ?',
-        (userId, userId,)
+        (user_id, user_id,)
     ).fetchall()
     return stickers_sent
 
 
-@bp.route('/send_sticker/<int:stickerId>', methods=('GET', 'POST'))
-def send_sticker(stickerId):
-    userId = session['user_id']
+@bp.route('/send_sticker/<int:sticker_id>', methods=('GET', 'POST'))
+def send_sticker(sticker_id):
+    user_id = session['user_id']
     db = get_db()
-    session['sticker_id'] = stickerId
+    session['sticker_id'] = sticker_id
 
     # Insert data in messages table when the form is submitted
     if request.method == 'POST':
-        contactId = request.form['contactid']
+        contact_id = request.form['contactid']
         db.execute(
-            'INSERT INTO messages (sender_id, receiver_id, sticker_id) VALUES (?, ?, ?)',
-            (userId, contactId, stickerId,)
+            'INSERT INTO messages (sender_id, receiver_id, sticker_id) '
+            'VALUES (?, ?, ?)',
+            (user_id, contact_id, sticker_id,)
         )
         db.commit()
         return redirect(url_for('chat.index'))
@@ -67,9 +72,9 @@ def send_sticker(stickerId):
 
 
 # Update user information
-@bp.route('/update/<int:id>', methods=('GET', 'POST'))
+@bp.route('/update/<int:user_id>', methods=('GET', 'POST'))
 @login_required
-def update(id):
+def update(user_id):
 
     if request.method == 'POST':
         # Get name input from the update form
@@ -81,25 +86,29 @@ def update(id):
         birth_date = request.form['birth_date']
         error = None
 
-        # When the user modifies the values, he can't leave the username and email empty
+        # When the user modifies the values, he can't leave the username and
+        # email empty
         if not username:
-            error = "Nom d'utilisateur requis"
+            error = 'Nom d’utilisateur requis'
         elif not email:
-            error = "Adresse email requise"
+            error = 'Adresse email requise'
 
         if error is not None:
             flash(error)
         # If there is no error, call database
         else:
             db = get_db()
-            # Execute an update request to retrieve data that was inserted in the form
+            # Execute an update request to retrieve data that was inserted in
+            # the form
             db.execute(
-                'UPDATE users'
-                ' SET username = ?, email = ?, personal_message = ?, facebook_url = ?, twitter_url = ?, birth_date = ?'
-                ' WHERE id = ?',
-                (username, email, personal_message, facebook_url, twitter_url, birth_date, id,)
+                'UPDATE users '
+                'SET username = ?, email = ?, personal_message = ?, '
+                '    facebook_url = ?, twitter_url = ?, birth_date = ? '
+                'WHERE id = ?', (
+                    username, email, personal_message, facebook_url,
+                    twitter_url, birth_date, user_id)
             )
             db.commit()
             return redirect(url_for('chat.index'))
 
-    return render_template("chat/update.html")
+    return render_template('chat/update.html')
