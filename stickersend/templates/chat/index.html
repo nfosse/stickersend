@@ -138,7 +138,7 @@
                                     <div class="col-sm-12 sticker_packs">
                                         {% for sticker in stickers %}
                                         {% if sticker['pack_name'] == sticker_pack['pack_name']: %}
-                                        <form action="{{ url_for('chat.send_sticker', stickerId=sticker['id']) }}"
+                                        <form action="{{ url_for('chat.send_sticker', sticker_id=sticker['id']) }}"
                                               method="POST">
                                             <div class="btn-sticker">
                                                 <input type="hidden" name="contactid" value="{{ contact['id'] }}">
